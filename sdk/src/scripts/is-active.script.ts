@@ -6,7 +6,7 @@ import invariant from 'tiny-invariant';
 (async () => {
   try {
     const isActive = await DCATestnet.isActive({
-      dca: '0x4af0d205fbf6e1ce5cc03f34b22af373a17e266940a3c23db457386f13d67285',
+      dca: '0xa4176bea17737ebb71790c8232cbb0c5745ba769f1856683311d70fca569178e',
       coinInType: COINS.usdc.coinType,
       coinOutType: COINS.eth.coinType,
     });
