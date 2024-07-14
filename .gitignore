@@ -3,3 +3,5 @@
 build
 local
 node_modules
+.env
+.env.local

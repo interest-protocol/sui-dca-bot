@@ -2,34 +2,12 @@
 
 [move]
 version = 0
-manifest_digest = "F120B1CF6032CC423E983AF439F82118FDAFB2D82DCBDAF546D3A2F110685928"
-deps_digest = "52B406A7A21811BEF51751CF88DA0E76DAEFFEAC888D4F4060B1A72BBE7D8D35"
+manifest_digest = "54DE5B1FBB9128E9CB506532056F7954761B727F17616AE600CBC2FDCEE11BC6"
+deps_digest = "060AD7E57DFB13104F21BE5F5C3759D03F0553FC3229247D9A7A6B45F50D03A3"
 
 dependencies = [
-  { name = "Cetus" },
-  { name = "CetusClmm" },
   { name = "DCA" },
   { name = "DeepBook" },
-  { name = "MoveStdlib" },
-  { name = "Sui" },
-]
-
-[[move.package]]
-name = "Cetus"
-source = { local = "../interfaces/cetus/cetus" }
-
-dependencies = [
-  { name = "CetusClmm" },
-  { name = "Sui" },
-]
-
-[[move.package]]
-name = "CetusClmm"
-source = { local = "../interfaces/cetus/cetus_clmm" }
-
-dependencies = [
-  { name = "IntegerMate" },
-  { name = "MoveSTL" },
   { name = "Sui" },
 ]
 
@@ -38,14 +16,13 @@ name = "DCA"
 source = { local = "../dca" }
 
 dependencies = [
-  { name = "MoveStdlib" },
   { name = "Sui" },
   { name = "SuiTears" },
 ]
 
 [[move.package]]
 name = "DeepBook"
-source = { git = "https://github.com/MystenLabs/sui.git", rev = "framework/mainnet", subdir = "crates/sui-framework/packages/deepbook" }
+source = { git = "https://github.com/MystenLabs/sui.git", rev = "testnet", subdir = "crates/sui-framework/packages/deepbook" }
 
 dependencies = [
   { name = "MoveStdlib" },
@@ -53,28 +30,12 @@ dependencies = [
 ]
 
 [[move.package]]
-name = "IntegerMate"
-source = { local = "../interfaces/cetus/integer-mate" }
-
-dependencies = [
-  { name = "Sui" },
-]
-
-[[move.package]]
-name = "MoveSTL"
-source = { local = "../interfaces/cetus/move-stl" }
-
-dependencies = [
-  { name = "Sui" },
-]
-
-[[move.package]]
 name = "MoveStdlib"
-source = { git = "https://github.com/MystenLabs/sui.git", rev = "framework/mainnet", subdir = "crates/sui-framework/packages/move-stdlib" }
+source = { git = "https://github.com/MystenLabs/sui.git", rev = "testnet", subdir = "crates/sui-framework/packages/move-stdlib" }
 
 [[move.package]]
 name = "Sui"
-source = { git = "https://github.com/MystenLabs/sui.git", rev = "framework/mainnet", subdir = "crates/sui-framework/packages/sui-framework" }
+source = { git = "https://github.com/MystenLabs/sui.git", rev = "testnet", subdir = "crates/sui-framework/packages/sui-framework" }
 
 dependencies = [
   { name = "MoveStdlib" },
@@ -82,14 +43,21 @@ dependencies = [
 
 [[move.package]]
 name = "SuiTears"
-source = { git = "https://github.com/interest-protocol/suitears.git", rev = "main", subdir = "contracts" }
+source = { git = "https://github.com/interest-protocol/suitears.git", rev = "testnet", subdir = "contracts" }
 
 dependencies = [
-  { name = "MoveStdlib" },
   { name = "Sui" },
 ]
 
 [move.toolchain-version]
-compiler-version = "1.27.2"
+compiler-version = "1.28.3"
 edition = "2024.beta"
 flavor = "sui"
+
+[env]
+
+[env.testnet]
+chain-id = "4c78adac"
+original-published-id = "0x902d25ea000254beaa4b819fa33e2fc8228fae56820bf4f8795f78fa7ffddc7c"
+latest-published-id = "0x902d25ea000254beaa4b819fa33e2fc8228fae56820bf4f8795f78fa7ffddc7c"
+published-version = "1"

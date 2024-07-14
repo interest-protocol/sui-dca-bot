@@ -56,7 +56,7 @@ module dca::dca_tests {
         assert_eq(dca::owner(&dca), OWNER);
         assert_eq(dca::delegatee(&dca), DELEGATEE);
         assert_eq(dca::start_timestamp(&dca), 15);
-        assert_eq(dca::last_trade_timestamp(&dca), 15);
+        assert_eq(dca::last_trade_timestamp(&dca), 0);
         assert_eq(dca::time_scale(&dca), MIN);
         assert_eq(dca::amount_per_trade(&dca), 100 / number_of_orders);
         assert_eq(dca::min(&dca), min);

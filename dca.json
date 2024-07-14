@@ -1,0 +1,18 @@
+[
+  {
+    "type": "package",
+    "id": "0x478c23bcb6910fea13d06ca54ee65366f2e961cc19af243474d205195f49f575"
+  },
+  {
+    "type": "trade_policy::TradePolicy",
+    "id": "0x56442213e8216ea0649858622adc6d667d3541f3dc95efd194f4cc0a8bf6d574"
+  },
+  {
+    "type": "",
+    "id": "0x740dc78916633071d16546ddf62aab5405e2a11abb4ec13a9c2535d0f9215dba"
+  },
+  {
+    "type": "trade_policy::Admin",
+    "id": "0xfb5b76b434de08f6846646898b15f3a58a990833987a9c692446affc00d2cd82"
+  }
+]

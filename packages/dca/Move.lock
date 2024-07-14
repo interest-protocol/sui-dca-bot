@@ -2,22 +2,21 @@
 
 [move]
 version = 0
-manifest_digest = "4A362FBAAC5D2A7934619E7C2C22C7E4BF0D3232DE36148CA8A1611CABA07D13"
-deps_digest = "060AD7E57DFB13104F21BE5F5C3759D03F0553FC3229247D9A7A6B45F50D03A3"
+manifest_digest = "B460A3BF708DA8C56FC4B358D50690E0D555921CB8F97995483BDAAF14747D63"
+deps_digest = "3C4103934B1E040BB6B23F1D610B4EF9F2F1166A50A104EADCF77467C004C600"
 
 dependencies = [
-  { name = "MoveStdlib" },
   { name = "Sui" },
   { name = "SuiTears" },
 ]
 
 [[move.package]]
 name = "MoveStdlib"
-source = { git = "https://github.com/MystenLabs/sui.git", rev = "framework/mainnet", subdir = "crates/sui-framework/packages/move-stdlib" }
+source = { git = "https://github.com/MystenLabs/sui.git", rev = "testnet", subdir = "crates/sui-framework/packages/move-stdlib" }
 
 [[move.package]]
 name = "Sui"
-source = { git = "https://github.com/MystenLabs/sui.git", rev = "framework/mainnet", subdir = "crates/sui-framework/packages/sui-framework" }
+source = { git = "https://github.com/MystenLabs/sui.git", rev = "testnet", subdir = "crates/sui-framework/packages/sui-framework" }
 
 dependencies = [
   { name = "MoveStdlib" },
@@ -25,14 +24,21 @@ dependencies = [
 
 [[move.package]]
 name = "SuiTears"
-source = { git = "https://github.com/interest-protocol/suitears.git", rev = "main", subdir = "contracts" }
+source = { git = "https://github.com/interest-protocol/suitears.git", rev = "testnet", subdir = "contracts" }
 
 dependencies = [
-  { name = "MoveStdlib" },
   { name = "Sui" },
 ]
 
 [move.toolchain-version]
-compiler-version = "1.21.0"
-edition = "legacy"
+compiler-version = "1.28.3"
+edition = "2024.beta"
 flavor = "sui"
+
+[env]
+
+[env.testnet]
+chain-id = "4c78adac"
+original-published-id = "0xbc9ef96a26b7352270a6ee77707aa649df57707fccfe0f71a716ec14c80174d9"
+latest-published-id = "0xbc9ef96a26b7352270a6ee77707aa649df57707fccfe0f71a716ec14c80174d9"
+published-version = "1"
