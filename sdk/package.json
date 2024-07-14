@@ -21,12 +21,7 @@
     "access": "public"
   },
   "scripts": {
-    "new": "tsx ./src/scripts/new.script.ts",
-    "is-active": "tsx ./src/scripts/is-active.script.ts",
-    "get": "tsx ./src/scripts/get.script.ts",
-    "stop-and-destroy": "tsx ./src/scripts/stop-and-destroy.script.ts",
-    "approve-hop": "tsx ./src/scripts/approve-hop.script.ts",
-    "swap-hop": "tsx ./src/scripts/swap-hop.script.ts"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "license": "ISC",
@@ -34,7 +29,6 @@
   "devDependencies": {
     "@types/node": "^20.14.10",
     "@types/ramda": "^0.30.1",
-    "dotenv": "^16.4.5",
     "eslint": "^8.0.1",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.25.2",

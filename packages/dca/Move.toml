@@ -2,14 +2,14 @@
 name = "DCA"
 edition = "2024.beta"
 authors = ["Jose Cerqueira (jose@interestprotocol.com)"]
-published-at = "0xbc9ef96a26b7352270a6ee77707aa649df57707fccfe0f71a716ec14c80174d9"
 
 [dependencies]
-Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev = "testnet" }
-SuiTears = { git = "https://github.com/interest-protocol/suitears.git", subdir = "contracts", rev = "testnet" }
+MoveStdlib = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/move-stdlib", rev = "framework/mainnet" }
+Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev = "framework/mainnet" }
+SuiTears = { git = "https://github.com/interest-protocol/suitears.git", subdir = "contracts", rev = "main" }
 
 [addresses]
-dca = "0xbc9ef96a26b7352270a6ee77707aa649df57707fccfe0f71a716ec14c80174d9"
+dca = "0x0"
 std = "0x1"
 sui = "0x2"
-suitears = "0x0bf4ed8a40599da94afb0f4ab91679de6728b93b748fe24de6fd972a04438529"
+suitears = "0xf7334947a5037552a94cee15fc471dbda71bf24d46c97ee24e1fdac38e26644c"
