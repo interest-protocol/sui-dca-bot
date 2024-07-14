@@ -3,13 +3,21 @@ module adapter::hop_adapter {
 
     use sui::coin::Coin;
 
-    use dca::trade_policy::{Self, Request, Admin};
+    use dca::trade_policy::{Self, Request};
 
     // === Structs ===
 
     public struct Hop has drop {}
 
+    public struct Admin has key, store {
+        id: UID
+    }
+
     // === Public-Mutative Functions ===
+
+    fun init(ctx: &mut TxContext) {
+        transfer::public_transfer(Admin { id: object::new(ctx) }, ctx.sender());
+    }
 
     public fun swap<Output>(
         _: &Admin,
