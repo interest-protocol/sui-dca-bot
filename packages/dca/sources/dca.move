@@ -1,8 +1,6 @@
 module dca::dca {
     // === Imports ===
 
-    use std::type_name::{Self, TypeName};
-
     use sui::{
         event,
         coin::Coin,
@@ -72,29 +70,23 @@ module dca::dca {
         total_delegatee_output: u64,
     }
 
-    public struct Start has copy, drop, store {
-        input: TypeName,
-        output: TypeName,
+    public struct Start<phantom Input, phantom Output> has copy, drop, store {
         every: u64,
         time_scale: u8,
-        input_amount: u64,
+        input: u64,
         dca: address,
         delegatee: address,
     }
 
-    public struct Resolve has copy, drop, store {
-        input: TypeName,
-        output: TypeName,
+    public struct Resolve<phantom Input, phantom Output> has copy, drop, store {
         fee: u64,
-        input_amount: u64,
-        output_amount: u64,
+        input: u64,
+        output: u64,
         dca: address,
     }
 
     public struct Destroy<phantom Input, phantom Output> has copy, drop, store {
-        input: TypeName,
-        output: TypeName,
-        input_amount: u64,
+        input: u64,
         dca: address,
         owner: address
     }
@@ -124,7 +116,7 @@ module dca::dca {
             id: object::new(ctx),
             owner: ctx.sender(),
             start_timestamp,
-            last_trade_timestamp: 0,
+            last_trade_timestamp: start_timestamp,
             every,
             remaining_orders: number_of_orders,
             time_scale,
@@ -141,12 +133,10 @@ module dca::dca {
         };
 
         event::emit(
-            Start {
-                input: type_name::get<Input>(),
-                output: type_name::get<Output>(),
+            Start<Input, Output> {
                 every,
                 time_scale,
-                input_amount: dca.input_balance.value(),
+                input: dca.input_balance.value(),
                 dca: object::id_address(&dca),
                 delegatee
             }
@@ -191,9 +181,7 @@ module dca::dca {
         let input = input_balance.value();
 
         event::emit(Destroy<Input, Output> {
-            input: type_name::get<Input>(),
-            output: type_name::get<Output>(),
-            input_amount: input,
+            input,
             dca: id.uid_to_address(),
             owner
         });
@@ -340,12 +328,10 @@ module dca::dca {
         self.total_delegatee_output = self.total_delegatee_output + balance_fee.value();
 
         event::emit(
-            Resolve {
-                input: type_name::get<Input>(),
-                output: type_name::get<Output>(),
+            Resolve<Input, Output> {
                 fee: balance::value(&balance_fee),
-                input_amount: self.amount_per_trade,
-                output_amount: output_value,
+                input: self.amount_per_trade,
+                output: output_value,
                 dca: object::id_address(self)
             }
         );
