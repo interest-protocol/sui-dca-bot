@@ -27,13 +27,13 @@ export const COINS = {
 
 export const OBJECT_IDS = {
   testnet: {
-    dca: '0xbc9ef96a26b7352270a6ee77707aa649df57707fccfe0f71a716ec14c80174d9',
+    dca: '0x29d181f4154973ccd5e392ccce3b2ed44d7644ba7e1a2479239bea26c615d9ac',
     adapters:
-      '0x902d25ea000254beaa4b819fa33e2fc8228fae56820bf4f8795f78fa7ffddc7c',
+      '0xa4c68051bf638dbb2e0e0f6532680a5f4c0cb31a21fb1fbe50f3336c9110ea11',
     adminCap:
-      '0x64a9e5e99891f72a4fef7196ea5ee9db2b452d59a7236eaecc3aeb02282c4e52',
+      '0xf933a1b16fac37bba263ed30872f51a39513bbc04bf125bd882414004a33834c',
     tradePolicy:
-      '0xaba8b3b21fdce1e9285a733b7be4ab40a6e31a5850999ad2ae4f2eebd3904201',
+      '0x7574069b7fa1a87114433ed3cbcc29fa64fb47e0b0f63ad142484b5cd1babc89',
   },
   mainnet: {
     dca: '0x0',

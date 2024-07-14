@@ -91,7 +91,7 @@ module dca::dca {
         dca: address,
     }
 
-    public struct Destroy<phantom Input, phantom Output> has copy, drop, store {
+    public struct Destroy has copy, drop, store {
         input: TypeName,
         output: TypeName,
         input_amount: u64,
@@ -190,7 +190,7 @@ module dca::dca {
 
         let input = input_balance.value();
 
-        event::emit(Destroy<Input, Output> {
+        event::emit(Destroy {
             input: type_name::get<Input>(),
             output: type_name::get<Output>(),
             input_amount: input,
