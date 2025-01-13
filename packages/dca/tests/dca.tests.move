@@ -15,7 +15,7 @@ module dca::dca_tests {
     const MIN: u8 = 1;
 
     const MINUTE: u64 = 60;
-    const MAX_FEE: u64 = 3000000; // 3%
+    const MAX_FEE: u64 = 30000000; // 3%
 
     const MILLISECONDS: u64 = 1000;
     const MAX_U64: u64 = 18446744073709551615;

@@ -9,6 +9,7 @@ module dca::dca {
         coin::{Self, Coin},
         vec_set::{Self, VecSet},
         balance::{Self, Balance},
+        dynamic_field as df,
     };
 
     use suitears::math64;
@@ -93,6 +94,8 @@ module dca::dca {
         id: UID,
         treasury: address
     }
+
+    public struct RecipientKey() has copy, drop, store;
 
     #[allow(lint(coin_field))]
     public struct Request<phantom Output> {
@@ -208,6 +211,30 @@ module dca::dca {
         dca
     }
 
+    public fun new_with_recipient<Input, Output, Witness: drop>(
+        settings: &Settings,
+        trade_policy: &TradePolicy,
+        clock: &Clock,
+        coin_in: Coin<Input>,
+        every: u64,
+        number_of_orders: u64,
+        time_scale: u8,
+        min: u64,
+        max: u64,
+        fee_percent: u64,
+        delegatee: address,
+        recipient: address,
+        ctx: &mut TxContext,
+    ): DCA<Input, Output> {
+        assert!(recipient != @0x0);
+
+        let mut dca = new<Input, Output, Witness>(settings, trade_policy, clock, coin_in, every, number_of_orders, time_scale, min, max, fee_percent, delegatee, ctx);
+
+        df::add(&mut dca.id, RecipientKey(), recipient);
+
+        dca
+    }
+
     #[allow(lint(share_owned))]
     public fun share<Input, Output>(self: DCA<Input, Output>) {
         transfer::share_object(self);
@@ -311,6 +338,14 @@ module dca::dca {
 
     public fun treasury<Input, Output>(self: &DCA<Input, Output>): address {
         self.treasury
+    }
+
+    public fun recipient<Input, Output>(self: &DCA<Input, Output>): address {
+        if (df::exists_with_type<RecipientKey, address>(&self.id, RecipientKey())) {
+            *df::borrow<RecipientKey, address>(&self.id, RecipientKey())
+        } else {
+            self.owner
+        }
     }
 
     public fun start_timestamp<Input, Output>(self: &DCA<Input, Output>): u64 {
@@ -492,7 +527,7 @@ module dca::dca {
         });
 
         transfer::public_transfer(balance_fee.into_coin(ctx), self.treasury);
-        transfer::public_transfer(balance_out.into_coin(ctx), self.owner);
+        transfer::public_transfer(balance_out.into_coin(ctx), self.recipient());
     }
 
     fun take<Input, Output>(self: &mut DCA<Input, Output>, ctx: &mut TxContext): Coin<Input> {
