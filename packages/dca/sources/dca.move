@@ -341,8 +341,9 @@ module dca::dca {
     }
 
     public fun recipient<Input, Output>(self: &DCA<Input, Output>): address {
-        if (df::exists_with_type<RecipientKey, address>(&self.id, RecipientKey())) {
-            *df::borrow<RecipientKey, address>(&self.id, RecipientKey())
+        let recipient_key = RecipientKey();
+        if (df::exists_with_type<RecipientKey, address>(&self.id, recipient_key)) {
+            *df::borrow<RecipientKey, address>(&self.id, recipient_key)
         } else {
             self.owner
         }
