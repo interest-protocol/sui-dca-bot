@@ -20,7 +20,13 @@ interface MaybeTx {
 }
 
 export type Package = Record<
-  'DCA' | 'ADAPTERS' | 'DCA_V2' | 'ADAPTERS_V2' | 'DCA_V3' | 'DCA_V4',
+  | 'DCA'
+  | 'ADAPTERS'
+  | 'DCA_V2'
+  | 'ADAPTERS_V2'
+  | 'DCA_V3'
+  | 'DCA_V4'
+  | 'DCA_V5',
   string
 >;
 
@@ -53,7 +59,7 @@ interface DcaArgs {
 
 type WitnessWithVersion = typeof WITNESSES;
 
-export interface NewArgs extends MaybeTx {
+export interface NewAndShareArgs extends MaybeTx {
   coinInType: string;
   coinOutType: string;
   coinIn: TransactionArgument;
@@ -65,6 +71,10 @@ export interface NewArgs extends MaybeTx {
   fee?: number;
   delegatee: string;
   witnessType: WitnessWithVersion[keyof WitnessWithVersion];
+}
+
+export interface NewAndShareWithRecipientArgs extends NewAndShareArgs {
+  recipient: string;
 }
 
 export interface NestedResult {}

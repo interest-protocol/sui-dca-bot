@@ -13,11 +13,11 @@ import { executeTx, log } from './utils.script';
     const tx = new Transaction();
 
     tx.moveCall({
-      target: `${PACKAGES.mainnet.DCA}::dca::approve`,
-      typeArguments: [WITNESSES.mainnet.WHITELIST_ADAPTER],
+      target: `${PACKAGES.DCA}::dca::approve`,
+      typeArguments: [WITNESSES.WHITELIST_ADAPTER],
       arguments: [
-        tx.object(SHARED_OBJECTS.mainnet.TRADE_POLICY_MUT),
-        tx.object(OWNED_OBJECTS.mainnet.DCA_ADMIN),
+        tx.object(SHARED_OBJECTS.TRADE_POLICY_MUT),
+        tx.object(OWNED_OBJECTS.DCA_ADMIN),
       ],
     });
 

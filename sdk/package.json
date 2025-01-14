@@ -15,7 +15,7 @@
       "types": "./dist/dca/index.d.ts"
     }
   },
-  "version": "5.1.2",
+  "version": "5.2.0",
   "description": "",
   "publishConfig": {
     "access": "public"

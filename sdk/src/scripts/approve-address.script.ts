@@ -8,7 +8,7 @@ import { executeTx, log } from './utils.script';
     const tx = new Transaction();
 
     tx.moveCall({
-      target: `${PACKAGES.v2.ADAPTERS}::whitelist_adapter::add`,
+      target: `${PACKAGES.ADAPTERS_V2}::whitelist_adapter::add`,
       arguments: [
         tx.object(SHARED_OBJECTS.WHITELIST_MUT),
         tx.object(OWNED_OBJECTS.DCA_ADMIN),

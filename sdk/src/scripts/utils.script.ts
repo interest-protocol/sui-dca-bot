@@ -1,45 +1,40 @@
-import { getFullnodeUrl, SuiClient } from "@mysten/sui/client";
-import { OwnedObjectRef } from "@mysten/sui/client";
-import { Ed25519Keypair } from "@mysten/sui/keypairs/ed25519";
-import { Transaction, TransactionResult } from "@mysten/sui/transactions";
-import dotenv from "dotenv";
-import invariant from "tiny-invariant";
-import util from "util";
+import { getFullnodeUrl, SuiClient } from '@mysten/sui/client';
+import { OwnedObjectRef } from '@mysten/sui/client';
+import { Ed25519Keypair } from '@mysten/sui/keypairs/ed25519';
+import { Transaction, TransactionResult } from '@mysten/sui/transactions';
+import dotenv from 'dotenv';
+import invariant from 'tiny-invariant';
+import util from 'util';
 
-import { DcaSDK } from "../dca";
+import { DcaSDK } from '../dca';
 
 dotenv.config();
 
-invariant(process.env.KEY, "Private key missing");
+invariant(process.env.KEY, 'Private key missing');
 
 export const keypair = Ed25519Keypair.fromSecretKey(
-  Uint8Array.from(Buffer.from(process.env.KEY, "base64")).slice(1)
+  Uint8Array.from(Buffer.from(process.env.KEY, 'base64')).slice(1)
 );
 
-export const client = new SuiClient({ url: getFullnodeUrl("mainnet") });
+export const client = new SuiClient({ url: getFullnodeUrl('mainnet') });
 
 export const DCAMainnet = new DcaSDK();
-export const DCATestnet = new DcaSDK({ network: "testnet" });
 
 export const executeTx = async (tx: Transaction) => {
-  console.log(5.1);
-
   const result = await client.signAndExecuteTransaction({
     signer: keypair,
     transaction: tx,
     options: { showEffects: true },
-    requestType: "WaitForLocalExecution",
+    requestType: 'WaitForLocalExecution',
   });
 
-  console.log(5.2);
-
   // return if the tx hasn't succeed
-  if (result.effects?.status?.status !== "success") {
-    console.log("\n\nCreating a new stable pool failed");
+  if (result.effects?.status?.status !== 'success') {
+    console.log('\n\nCreating a new stable pool failed');
     return;
   }
 
-  console.log("SUCCESS!");
+  console.log('SUCCESS!');
 
   // get all created objects IDs
   const createdObjectIds = result.effects?.created?.map(
@@ -64,7 +59,7 @@ export const sleep = async (ms = 0) =>
 export const PRECISION = 1000000000000000000n;
 
 export function removeLeadingZeros(address: string): string {
-  return (address as any).replaceAll(/0x0+/g, "0x");
+  return (address as any).replaceAll(/0x0+/g, '0x');
 }
 
 export async function getCoinOfValue(
@@ -74,7 +69,7 @@ export async function getCoinOfValue(
 ): Promise<TransactionResult> {
   let coinOfValue: TransactionResult;
   coinType = removeLeadingZeros(coinType);
-  if (coinType === "0x2::sui::SUI") {
+  if (coinType === '0x2::sui::SUI') {
     coinOfValue = tx.splitCoins(tx.gas, [tx.pure.u64(coinValue)]);
   } else {
     const paginatedCoins = await client.getCoins({

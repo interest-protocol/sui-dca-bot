@@ -2,7 +2,7 @@ import { Transaction } from '@mysten/sui/transactions';
 import { normalizeSuiAddress } from '@mysten/sui/utils';
 
 import { COINS } from './coins.script';
-import { DCATestnet, executeTx, log } from './utils.script';
+import { DCAMainnet, executeTx, log } from './utils.script';
 
 (async () => {
   try {
@@ -12,7 +12,7 @@ import { DCATestnet, executeTx, log } from './utils.script';
       tx: tx1,
       request,
       coinIn,
-    } = DCATestnet.swapWhitelistStart({
+    } = DCAMainnet.swapWhitelistStart({
       tx: initTx,
       coinInType: COINS.usdc.coinType,
       coinOutType: COINS.eth.coinType,
@@ -28,7 +28,7 @@ import { DCATestnet, executeTx, log } from './utils.script';
       arguments: [initTx.object(COINS.eth.treasuryCap), initTx.pure.u64(100n)],
     });
 
-    const tx2 = DCATestnet.swapWhitelistEnd({
+    const tx2 = DCAMainnet.swapWhitelistEnd({
       tx: tx1,
       coinInType: COINS.usdc.coinType,
       coinOutType: COINS.eth.coinType,
