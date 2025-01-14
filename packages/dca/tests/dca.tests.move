@@ -23,6 +23,7 @@ module dca::dca_tests {
     const OWNER: address = @0x7;
     const DELEGATEE: address = @0x8;
     const ALICE: address = @0xa11c3;
+    const JOSE: address = @0x1234567890;
 
     public struct USDC has drop {}
     public struct ValidWitness has drop {}
@@ -129,6 +130,7 @@ module dca::dca_tests {
 
         assert_eq(dca.active(), true);
         assert_eq(dca.remaining_orders(), 2);
+        assert_eq(dca.recipient(), OWNER);
 
         let (mut request, input) = dca.request(world.scenario.ctx());
 
@@ -167,6 +169,57 @@ module dca::dca_tests {
         assert_eq(dca::total_delegatee_output(&dca), 2);
 
         dca.share();
+        world.end();
+    }
+
+    #[test]
+    fun test_confirm_with_recipient() {
+        let mut world = start_world(); 
+
+        world.clock.increment_for_testing(2 * MINUTE * MILLISECONDS);
+
+        let mut dca = dca::new_with_recipient<SUI, USDC, ValidWitness>(
+            &world.settings,
+            &world.trade_policy,
+            &world.clock,
+            mint_for_testing<SUI>(100, world.scenario.ctx()),
+            2,
+            2,
+            MIN,
+            0,
+            MAX_U64,
+            1000000,
+            DELEGATEE,
+            JOSE,
+            world.scenario.ctx(),
+        );
+
+        assert_eq(dca.recipient(), JOSE); 
+        assert_eq(dca.owner(), OWNER);
+        assert_eq(dca.owner() != JOSE, true);
+
+        let (mut request, input) = dca.request(world.scenario.ctx());
+
+        input.burn_for_testing(); 
+
+        request.add(ValidWitness {}, mint_for_testing<USDC>(2000, world.scenario.ctx()));
+
+        dca.confirm(
+            &world.clock,
+            request,
+            world.scenario.ctx(),
+        );
+
+        world.scenario.next_tx(OWNER);
+
+        let owner_coin = world.scenario.take_from_address<Coin<USDC>>(JOSE);
+        let treasury_coin = world.scenario.take_from_address<Coin<USDC>>(@treasury);
+
+        assert_eq(owner_coin.burn_for_testing(), 1999);
+        assert_eq(treasury_coin.burn_for_testing(), 1);
+        
+        destroy(dca);
+
         world.end();
     }
 
